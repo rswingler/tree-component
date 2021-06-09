@@ -1,0 +1,17 @@
+.App {
+ 
+  .inputDataArea {
+    padding: 20px;
+    border-bottom: 1px solid grey;
+  }
+
+  .splitView {
+    display: flex;
+    .yourTree {
+      flex: 1;
+    }
+    .exampleTree {
+      flex: 1;
+    }
+  }
+}

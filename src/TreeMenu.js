@@ -13,6 +13,7 @@ export default function TreeMenu({nodes}) {
             model[n.scenarioId] = {
                 id: n.scenarioId,
                 name: n.scenarioName,
+                level: 0,
                 parent: n.parentGroupScenario,
                 children: []
             }
@@ -21,6 +22,7 @@ export default function TreeMenu({nodes}) {
         //Populate children
         myNodes.forEach(n => {
             if (n.parentGroupScenario) {
+                model[n.scenarioId].level = model[n.parentGroupScenario].level + 1;
                 model[n.parentGroupScenario].children.push(model[n.scenarioId]);
             }
         });
@@ -45,7 +47,7 @@ function TreeElement({node}) {
     const hasChildren = useMemo(() => node.children.length > 0, [node]);
     const [hasHover, setHasHover] = useState(false);
     return (
-        <div>
+        <div style={{paddingLeft: 15 * node.level}}>
             <div style={{...styles.treeElement, ...(hasHover ? styles.hoveredTreeElement : {})}}>
                 <div style={styles.leftCol}>
                     {hasChildren && <div>&#9660;</div>}
@@ -75,7 +77,7 @@ const styles = {
         marginRight: 10
     },
     treeMenu: {
-        paddingLeft: 15
+        // paddingLeft: 15
     },
     treeElement: {
         display: 'flex',
